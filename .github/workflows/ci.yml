@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions: {}
+
+jobs:
+  install-and-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Compact Compiler
+        uses: midnightntwrk/setup-compact-action@v1
+        with:
+          compact-version: '0.31.1'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Update NPM
+        run: |
+          npm install -g npm@11.6.2
+          npm --version
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Compile and test contract
+        working-directory: contract
+        run: |
+          npm run ci
+
+      - name: Run API checks
+        working-directory: api
+        run: |
+          npm run ci
+
+      - name: Compile and test UI
+        working-directory: bboard-ui
+        run: |
+          npm run ci
