@@ -1,0 +1,9 @@
+pragma language_version 0.23;
+
+import CompactStandardLibrary;
+
+export ledger eligible: Map<Bytes<32>, Boolean>;
+export ledger verification_timestamp: Map<Bytes<32>, Uint64>;
+
+constructor() {
+}
