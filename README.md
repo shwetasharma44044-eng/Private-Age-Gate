@@ -1,6 +1,6 @@
 # Private Age Gate (Midnight Network dApp)
 
-[![CI](https://github.com/your-username/private-age-gate/actions/workflows/ci.yml/badge.svg)](https://github.com/your-username/private-age-gate/actions/workflows/ci.yml)
+[![CI](https://github.com/shwetasharma44044-eng/Private-Age-Gate/actions/workflows/ci.yml/badge.svg)](https://github.com/shwetasharma44044-eng/Private-Age-Gate/actions/workflows/ci.yml)
 
 An industry-grade, zero-knowledge privacy dApp built on the Midnight Network for age verification. It allows users to prove they are above an eligibility threshold (e.g., 18+) without ever disclosing their actual age on-chain or transmitting it as plaintext.
 
@@ -61,7 +61,7 @@ In traditional Web2 and Web3 applications, verifying a user's age (for alcohol d
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/private-age-gate.git
+   git clone https://github.com/shwetasharma44044-eng/Private-Age-Gate.git
    cd private-age-gate
    ```
 
