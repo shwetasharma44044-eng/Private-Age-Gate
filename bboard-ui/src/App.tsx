@@ -124,6 +124,7 @@ const App: React.FC = () => {
     setLoading(true);
     setError(null);
     try {
+      // Trigger the local ZK proof generation and submit transaction to the Midnight network ledger
       await deploymentState.api.verify(age, threshold);
       setLoading(false);
     } catch (err: any) {
