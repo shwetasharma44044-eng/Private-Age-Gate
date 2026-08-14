@@ -61,6 +61,11 @@ export interface DeployedAgeGateAPIProvider {
   readonly resolve: (contractAddress?: ContractAddress) => Observable<AgeGateDeployment>;
 }
 
+/**
+ * {@link BrowserDeployedAgeGateManager} configures and manages a connection to the Midnight Lace
+ * wallet, along with a collection of additional providers that work in a web-browser setting.
+ * This class handles the low-level dApp connector handshake to interface with the Lace wallet.
+ */
 export class BrowserDeployedAgeGateManager implements DeployedAgeGateAPIProvider {
   readonly #deploymentsSubject: BehaviorSubject<Array<BehaviorSubject<AgeGateDeployment>>>;
   #initializedProviders: Promise<AgeGateProviders> | undefined;
