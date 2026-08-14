@@ -7,3 +7,15 @@ export ledger verification_timestamp: Map<Bytes<32>, Uint64>;
 
 constructor() {
 }
+
+witness localAge(): Uint32;
+
+export circuit verifyEligibility(user: Bytes<32>, threshold: Uint32, timestamp: Uint64): Boolean {
+  const age = localAge();
+  assert(age >= threshold, "User age is below the required threshold");
+  
+  eligible[user] = disclose(true);
+  verification_timestamp[user] = disclose(timestamp);
+  
+  return true;
+}
