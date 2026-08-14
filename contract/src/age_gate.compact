@@ -3,14 +3,14 @@ pragma language_version 0.23;
 import CompactStandardLibrary;
 
 export ledger eligible: Map<Bytes<32>, Boolean>;
-export ledger verification_timestamp: Map<Bytes<32>, Uint64>;
+export ledger verification_timestamp: Map<Bytes<32>, Uint<64>>;
 
 constructor() {
 }
 
-witness localAge(): Uint32;
+witness localAge(): Uint<32>;
 
-export circuit verifyEligibility(user: Bytes<32>, threshold: Uint32, timestamp: Uint64): Boolean {
+export circuit verifyEligibility(user: Bytes<32>, threshold: Uint<32>, timestamp: Uint<64>): Boolean {
   const age = localAge();
   assert(age >= threshold, "User age is below the required threshold");
   
