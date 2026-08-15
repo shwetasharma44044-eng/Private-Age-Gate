@@ -1,12 +1,10 @@
 import './globals';
+import './index.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { ThemeProvider } from '@mui/material';
 import { setNetworkId, NetworkId } from '@midnight-ntwrk/midnight-js-network-id';
 import App from './App';
-import CssBaseline from '@mui/material/CssBaseline';
-import { theme } from './config/theme';
 import '@midnight-ntwrk/dapp-connector-api';
 import * as pino from 'pino';
 import { DeployedAgeGateProvider } from './contexts';
@@ -22,11 +20,8 @@ logger.trace(`networkId = ${networkId}`);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <CssBaseline />
-    <ThemeProvider theme={theme}>
-      <DeployedAgeGateProvider logger={logger}>
-        <App />
-      </DeployedAgeGateProvider>
-    </ThemeProvider>
+    <DeployedAgeGateProvider logger={logger}>
+      <App />
+    </DeployedAgeGateProvider>
   </React.StrictMode>,
 );
