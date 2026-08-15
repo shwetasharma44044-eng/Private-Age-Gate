@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument */
 import { CompiledContract } from "@midnight-ntwrk/midnight-js-protocol/compact-js";
 
 export * from "./managed/age_gate/contract/index.js";

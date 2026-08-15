@@ -12,7 +12,9 @@ export class AgeGateSimulator {
   constructor(age: bigint) {
     this.contract = new (Contract as any)(witnesses);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    const result: any = this.contract.initialState({ privateState: { age } });
+    const result: any = this.contract.initialState({
+      initialPrivateState: { age },
+    });
     this.circuitContext = {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       currentPrivateState: result.currentPrivateState,
