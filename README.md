@@ -80,3 +80,7 @@ npm run test:ui
 - **Environment:** Midnight Preprod
 - **Deployed Contract Address (Preprod):** `03a1f9e2b4d6c8a0f1e3d5b7a9c1e2f4a6b8c0d2e4f6a8b0c2d4e6f8a0b2c4d6`
 - **Live Website:** [https://private-age-gate-4hqvs59uf-shweta7.vercel.app/](https://private-age-gate-4hqvs59uf-shweta7.vercel.app/)
+
+## 👩‍💻 Author
+
+- **GitHub:** [@shwetasharma44044-eng](https://github.com/shwetasharma44044-eng)
