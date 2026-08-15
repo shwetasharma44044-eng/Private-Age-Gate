@@ -45,7 +45,8 @@ describe("AgeGate smart contract", () => {
     const ledgerState = simulator.getLedger();
     expect(ledgerState.eligible.lookup(user)).toBe(true);
     expect(ledgerState.verification_timestamp.lookup(user)).toBe(timestamp);
-    expect((ledgerState as any).age).toBeUndefined();
+    const ledgerAsRecord = ledgerState as Record<string, unknown>;
+    expect(ledgerAsRecord["age"]).toBeUndefined();
     expect(Object.keys(ledgerState)).not.toContain("age");
   });
 });

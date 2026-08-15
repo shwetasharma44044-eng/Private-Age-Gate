@@ -1,12 +1,5 @@
-import {
-  type CircuitContext,
-  CostModel,
-} from "@midnight-ntwrk/compact-runtime";
-import {
-  Contract,
-  type Ledger,
-  ledger,
-} from "../managed/age_gate/contract/index.js";
+import { type CircuitContext, CostModel, type ConstructorContext } from "@midnight-ntwrk/compact-runtime";
+import { Contract, type Ledger, ledger } from "../managed/age_gate/contract/index.js";
 import { type AgeGatePrivateState, witnesses } from "../witnesses.js";
 
 export class AgeGateSimulator {
@@ -15,20 +8,17 @@ export class AgeGateSimulator {
 
   constructor(age: bigint) {
     this.contract = new Contract<AgeGatePrivateState>(witnesses);
-    const {
-      currentPrivateState,
-      currentContractState,
-      currentZswapLocalState,
-    } = this.contract.initialState({
-      privateState: { age },
-    } as any);
+    const { currentPrivateState, currentContractState, currentZswapLocalState } =
+      this.contract.initialState({
+        privateState: { age },
+      } as ConstructorContext<AgeGatePrivateState>);
     this.circuitContext = {
       currentPrivateState,
       currentZswapLocalState,
       costModel: CostModel.initialCostModel(),
       currentQueryContext: {
         state: currentContractState.data,
-      } as any,
+      } as CircuitContext<AgeGatePrivateState>["currentQueryContext"],
     };
   }
 
@@ -40,7 +30,11 @@ export class AgeGateSimulator {
     return this.circuitContext.currentPrivateState;
   }
 
-  public verifyEligibility(user: Uint8Array, threshold: bigint, timestamp: bigint): boolean {
+  public verifyEligibility(
+    user: Uint8Array,
+    threshold: bigint,
+    timestamp: bigint,
+  ): boolean {
     this.circuitContext = this.contract.impureCircuits.verifyEligibility(
       this.circuitContext,
       user,

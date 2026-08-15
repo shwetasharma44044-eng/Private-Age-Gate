@@ -8,7 +8,10 @@ import * as Witnesses from "./witnesses";
 
 export const CompiledAgeGateContractContract = CompiledContract.make<
   CompiledAgeGateContract.Contract<Witnesses.AgeGatePrivateState>
->("AgeGate", CompiledAgeGateContract.Contract<Witnesses.AgeGatePrivateState>).pipe(
+>(
+  "AgeGate",
+  CompiledAgeGateContract.Contract<Witnesses.AgeGatePrivateState>,
+).pipe(
   CompiledContract.withWitnesses(Witnesses.witnesses),
   CompiledContract.withCompiledFileAssets("./managed/age_gate"),
 );
