@@ -25,9 +25,9 @@ describe('Frontend UI', () => {
       </DeployedAgeGateContext.Provider>,
     );
 
-    expect(screen.getByText('Midnight Private Age Gate')).toBeInTheDocument();
-    expect(screen.getByText('Connect & Select Contract')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Deploy New Age Gate Contract' })).toBeInTheDocument();
+    expect(screen.getByText('Private Age Gate')).toBeInTheDocument();
+    expect(screen.getByText('Connect & Select')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Deploy New Contract' })).toBeInTheDocument();
   });
 
   it('updates UI to show Verification Status and input fields when contract is deployed', () => {
@@ -61,9 +61,9 @@ describe('Frontend UI', () => {
       </DeployedAgeGateContext.Provider>,
     );
 
-    expect(screen.getByText('Verify Age Eligibility')).toBeInTheDocument();
+    expect(screen.getByText('Verify Age')).toBeInTheDocument();
     expect(screen.getByText('mock-contract-address')).toBeInTheDocument();
-    expect(screen.getByText('YOUR AGE (LOCAL WITNESS)')).toBeInTheDocument();
+    expect(screen.getByText('Your Exact Age (Private)')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Generate ZK Proof & Verify' })).toBeInTheDocument();
     expect(screen.getByText('Not Verified')).toBeInTheDocument();
   });
@@ -100,6 +100,6 @@ describe('Frontend UI', () => {
     );
 
     expect(screen.getByText('Eligible')).toBeInTheDocument();
-    expect(screen.getByText(/Age verified on-chain/)).toBeInTheDocument();
+    expect(screen.getByText(/Proved age is ≥/)).toBeInTheDocument();
   });
 });
