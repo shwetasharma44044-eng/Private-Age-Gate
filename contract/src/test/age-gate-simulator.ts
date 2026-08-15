@@ -1,6 +1,8 @@
 import {
   CostModel,
   createConstructorContext,
+  QueryContext,
+  sampleContractAddress,
 } from "@midnight-ntwrk/compact-runtime";
 
 import { Contract, ledger } from "../managed/age_gate/contract/index.js";
@@ -24,10 +26,10 @@ export class AgeGateSimulator {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       currentZswapLocalState: result.currentZswapLocalState,
       costModel: CostModel.initialCostModel(),
-      currentQueryContext: {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-        state: result.currentContractState.data,
-      },
+      currentQueryContext: new QueryContext(
+        result.currentContractState.data,
+        sampleContractAddress(),
+      ),
     };
   }
 
