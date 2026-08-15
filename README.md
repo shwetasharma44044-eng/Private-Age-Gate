@@ -63,7 +63,7 @@ npm run test:ui
 
 ### 1. User Interface (UI)
 *Add a screenshot of your beautiful Tailwind CSS frontend here.*
-![UI Screenshot](placeholder-ui.png)
+![UI Screenshot](image.png)
 
 ### 2. CI/CD Pipeline Success
 *Add a screenshot of your passing GitHub Actions workflow here.*
