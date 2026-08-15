@@ -51,9 +51,9 @@ const App: React.FC = () => {
           setError(deployment.error.message);
         }
       },
-      error: (err) => {
+      error: (err: unknown) => {
         setLoading(false);
-        setError(err.message || 'Deployment failed');
+        setError(err instanceof Error ? err.message : String(err) || 'Deployment failed');
       },
     });
   };
@@ -76,9 +76,9 @@ const App: React.FC = () => {
           setError(deployment.error.message);
         }
       },
-      error: (err) => {
+      error: (err: unknown) => {
         setLoading(false);
-        setError(err.message || 'Failed to join contract');
+        setError(err instanceof Error ? err.message : String(err) || 'Failed to join contract');
       },
     });
   };
@@ -89,8 +89,8 @@ const App: React.FC = () => {
         next: (state) => {
           setDerivedState(state);
         },
-        error: (err) => {
-          setError(err.message || 'Error loading contract state');
+        error: (err: unknown) => {
+          setError(err instanceof Error ? err.message : String(err) || 'Error loading contract state');
         },
       });
       return () => sub.unsubscribe();
@@ -105,9 +105,13 @@ const App: React.FC = () => {
       // Trigger the local ZK proof generation and submit transaction to the Midnight network ledger
       await deploymentState.api.verify(age, threshold);
       setLoading(false);
-    } catch (err: any) {
+    } catch (err: unknown) {
       setLoading(false);
-      setError(err.message || 'Verification transaction failed. Ensure wallet is connected/authorized.');
+      setError(
+        err instanceof Error
+          ? err.message
+          : String(err) || 'Verification transaction failed. Ensure wallet is connected/authorized.',
+      );
     }
   };
 
@@ -132,7 +136,8 @@ const App: React.FC = () => {
             </h1>
           </div>
           <p className="text-slate-400 max-w-2xl mx-auto text-lg">
-            Prove you meet age requirements on the Midnight Network without doxxing your identity or revealing your true age.
+            Prove you meet age requirements on the Midnight Network without doxxing your identity or revealing your true
+            age.
           </p>
         </div>
 
@@ -155,9 +160,10 @@ const App: React.FC = () => {
                     </div>
                     <h2 className="text-2xl font-bold text-slate-100">Connect & Select</h2>
                   </div>
-                  
+
                   <p className="text-slate-400 leading-relaxed">
-                    To start the zero-knowledge verification process, either deploy a new instance of the Age Gate contract, or join an existing session.
+                    To start the zero-knowledge verification process, either deploy a new instance of the Age Gate
+                    contract, or join an existing session.
                   </p>
 
                   <div className="space-y-6">
@@ -174,7 +180,9 @@ const App: React.FC = () => {
 
                     <div className="relative flex items-center py-2">
                       <div className="flex-grow border-t border-white/10"></div>
-                      <span className="flex-shrink-0 mx-4 text-slate-500 text-sm font-semibold uppercase tracking-wider">or join existing</span>
+                      <span className="flex-shrink-0 mx-4 text-slate-500 text-sm font-semibold uppercase tracking-wider">
+                        or join existing
+                      </span>
                       <div className="flex-grow border-t border-white/10"></div>
                     </div>
 
@@ -213,7 +221,9 @@ const App: React.FC = () => {
 
                   <div className="bg-black/20 border border-white/5 rounded-2xl p-4 flex items-center justify-between group">
                     <div className="min-w-0 mr-4">
-                      <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider mb-1">Active Contract</p>
+                      <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider mb-1">
+                        Active Contract
+                      </p>
                       <p className="font-mono text-sm text-slate-300 truncate">{activeContractAddress}</p>
                     </div>
                     <button
@@ -227,7 +237,9 @@ const App: React.FC = () => {
 
                   <div className="grid grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-slate-400 text-xs font-bold uppercase tracking-wider block">Your Exact Age (Private)</label>
+                      <label className="text-slate-400 text-xs font-bold uppercase tracking-wider block">
+                        Your Exact Age (Private)
+                      </label>
                       <input
                         type="number"
                         min="1"
@@ -238,7 +250,9 @@ const App: React.FC = () => {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-slate-400 text-xs font-bold uppercase tracking-wider block">Required Threshold</label>
+                      <label className="text-slate-400 text-xs font-bold uppercase tracking-wider block">
+                        Required Threshold
+                      </label>
                       <input
                         type="number"
                         min="1"
@@ -270,8 +284,10 @@ const App: React.FC = () => {
               <div className="absolute top-0 right-0 p-4 opacity-10">
                 <Shield className="w-48 h-48" />
               </div>
-              
-              <h3 className="text-slate-400 text-sm font-bold uppercase tracking-[0.2em] mb-8 relative z-10">Verification Status</h3>
+
+              <h3 className="text-slate-400 text-sm font-bold uppercase tracking-[0.2em] mb-8 relative z-10">
+                Verification Status
+              </h3>
 
               <div className="relative z-10 flex-1 flex flex-col justify-center items-center w-full">
                 {loading ? (
@@ -292,11 +308,13 @@ const App: React.FC = () => {
                       <h4 className="text-3xl font-extrabold text-emerald-400 mb-2">Eligible</h4>
                       <p className="text-slate-400">Proved age is ≥ {threshold}</p>
                     </div>
-                    
+
                     <div className="mt-8 bg-black/30 rounded-2xl p-4 border border-white/5 text-left">
                       <p className="text-slate-500 text-xs font-bold uppercase mb-1">Recorded On-Chain</p>
                       <p className="text-emerald-400 font-mono text-sm">
-                        {derivedState.timestamp ? new Date(Number(derivedState.timestamp)).toLocaleString() : 'Just now'}
+                        {derivedState.timestamp
+                          ? new Date(Number(derivedState.timestamp)).toLocaleString()
+                          : 'Just now'}
                       </p>
                     </div>
                   </div>
@@ -322,7 +340,7 @@ const App: React.FC = () => {
                 <Lock className="w-6 h-6 text-sky-400" />
                 <h3 className="text-xl font-bold text-white">Privacy Model Explained</h3>
               </div>
-              
+
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-sky-500/5 border border-sky-500/10 rounded-2xl p-6 relative overflow-hidden group hover:bg-sky-500/10 transition-colors">
                   <div className="flex items-center space-x-3 mb-4">
@@ -332,11 +350,16 @@ const App: React.FC = () => {
                   <ul className="space-y-3 text-slate-400 text-sm">
                     <li className="flex items-start">
                       <span className="text-sky-500 mr-2">•</span>
-                      <span><strong>Actual Age:</strong> Evaluated entirely on your device. Never transmitted to the ledger, a node, or any server.</span>
+                      <span>
+                        <strong>Actual Age:</strong> Evaluated entirely on your device. Never transmitted to the ledger,
+                        a node, or any server.
+                      </span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-sky-500 mr-2">•</span>
-                      <span><strong>Private Key:</strong> Remains securely in your local wallet to sign the intent.</span>
+                      <span>
+                        <strong>Private Key:</strong> Remains securely in your local wallet to sign the intent.
+                      </span>
                     </li>
                   </ul>
                 </div>
@@ -349,11 +372,16 @@ const App: React.FC = () => {
                   <ul className="space-y-3 text-slate-400 text-sm">
                     <li className="flex items-start">
                       <span className="text-emerald-500 mr-2">•</span>
-                      <span><strong>Eligibility Result:</strong> Only a boolean <code>true</code> is recorded, proving you met the threshold without leaking by how much.</span>
+                      <span>
+                        <strong>Eligibility Result:</strong> Only a boolean <code>true</code> is recorded, proving you
+                        met the threshold without leaking by how much.
+                      </span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-emerald-500 mr-2">•</span>
-                      <span><strong>Wallet Identity:</strong> Public key that performed the verification.</span>
+                      <span>
+                        <strong>Wallet Identity:</strong> Public key that performed the verification.
+                      </span>
                     </li>
                   </ul>
                 </div>
