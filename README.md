@@ -67,11 +67,11 @@ npm run test:ui
 
 ### 2. CI/CD Pipeline Success
 *Add a screenshot of your passing GitHub Actions workflow here.*
-![CI/CD Success](placeholder-ci.png)
+![alt text](image-1.png)
 
 ### 3. Test Outputs
 *Add a screenshot of your terminal showing passing unit tests for both contract and UI here.*
-![Test Output](placeholder-tests.png)
+![alt text](image-2.png)
 
 ## 🌐 Deployed Network
 - **Midnight Preprod Testnet**
