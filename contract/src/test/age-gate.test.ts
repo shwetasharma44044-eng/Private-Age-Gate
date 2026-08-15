@@ -16,8 +16,9 @@ describe("AgeGate smart contract", () => {
     expect(success).toBe(true);
 
     const ledgerState = simulator.getLedger();
-    expect(ledgerState.eligible.get(user)).toBe(true);
-    expect(ledgerState.verification_timestamp.get(user)).toBe(timestamp);
+    // Compact Map API: use .lookup() to read values
+    expect(ledgerState.eligible.lookup(user)).toBe(true);
+    expect(ledgerState.verification_timestamp.lookup(user)).toBe(timestamp);
   });
 
   it("fails verification when age is below threshold", () => {
@@ -31,7 +32,8 @@ describe("AgeGate smart contract", () => {
     }).toThrow("User age is below the required threshold");
 
     const ledgerState = simulator.getLedger();
-    expect(ledgerState.eligible.has(user)).toBe(false);
+    // Compact Map API: use .member() to check existence
+    expect(ledgerState.eligible.member(user)).toBe(false);
   });
 
   it("does not leak the private age value into the public ledger state", () => {
@@ -43,8 +45,8 @@ describe("AgeGate smart contract", () => {
     simulator.verifyEligibility(user, threshold, timestamp);
 
     const ledgerState = simulator.getLedger();
-    expect(ledgerState.eligible.get(user)).toBe(true);
-    expect(ledgerState.verification_timestamp.get(user)).toBe(timestamp);
+    expect(ledgerState.eligible.lookup(user)).toBe(true);
+    expect(ledgerState.verification_timestamp.lookup(user)).toBe(timestamp);
     const ledgerAsRecord = ledgerState as Record<string, unknown>;
     expect(ledgerAsRecord["age"]).toBeUndefined();
     expect(Object.keys(ledgerState)).not.toContain("age");
