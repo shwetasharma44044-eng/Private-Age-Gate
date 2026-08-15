@@ -59,6 +59,20 @@ npm run test:contract
 npm run test:ui
 ```
 
+## 📸 Screenshots & Proof of Work
+
+### 1. User Interface (UI)
+*Add a screenshot of your beautiful Tailwind CSS frontend here.*
+![UI Screenshot](placeholder-ui.png)
+
+### 2. CI/CD Pipeline Success
+*Add a screenshot of your passing GitHub Actions workflow here.*
+![CI/CD Success](placeholder-ci.png)
+
+### 3. Test Outputs
+*Add a screenshot of your terminal showing passing unit tests for both contract and UI here.*
+![Test Output](placeholder-tests.png)
+
 ## 🌐 Deployed Network
 - **Midnight Preprod Testnet**
 - Contract Address: `TBD (will be populated upon final deployment)`
