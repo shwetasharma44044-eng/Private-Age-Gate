@@ -1,4 +1,7 @@
-import { CostModel } from "@midnight-ntwrk/compact-runtime";
+import {
+  CostModel,
+  createConstructorContext,
+} from "@midnight-ntwrk/compact-runtime";
 
 import { Contract, ledger } from "../managed/age_gate/contract/index.js";
 import { type AgeGatePrivateState, witnesses } from "../witnesses.js";
@@ -12,9 +15,9 @@ export class AgeGateSimulator {
   constructor(age: bigint) {
     this.contract = new (Contract as any)(witnesses);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    const result: any = this.contract.initialState({
-      initialPrivateState: { age },
-    });
+    const result: any = this.contract.initialState(
+      createConstructorContext({ age }, new Uint8Array(32)),
+    );
     this.circuitContext = {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       currentPrivateState: result.currentPrivateState,
