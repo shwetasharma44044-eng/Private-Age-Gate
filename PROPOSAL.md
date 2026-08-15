@@ -8,6 +8,12 @@ The **Private Age Gate** is a decentralized application built on the Midnight Ne
 
 Users can definitively prove they meet a required age threshold (e.g., ≥ 18) without ever revealing their actual age, date of birth, or identity. The smart contract acts as an uncompromising, privacy-preserving gatekeeper.
 
+## Target Audience
+This solution is designed for:
+1. **Regulated Platforms:** Crypto exchanges (KYC), online gambling, and adult content sites that must legally verify age.
+2. **Retail & E-Commerce:** Platforms selling age-restricted goods (alcohol, vaping products) online.
+3. **Privacy-Conscious Users:** Everyday internet users who want to access restricted services without sacrificing their personal data to third-party honeypots.
+
 ## Why Midnight Network?
 Midnight’s unique data protection model is perfectly suited for this use case:
 1. **Local Private Witnesses**: The user's actual age remains a local witness. It is evaluated client-side and is never transmitted to the network or stored in plaintext.

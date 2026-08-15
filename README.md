@@ -75,8 +75,8 @@ npm run test:ui
 *Add a screenshot of your terminal showing passing unit tests for both contract and UI here.*
 ![alt text](image-2.png)
 
-## 🌐 Live Demo & Deployed Network
+## 📝 Contract Address
 
+- **Environment:** Midnight Preprod
+- **Deployed Contract Address (Preprod):** `03a1f9e2b4d6c8a0f1e3d5b7a9c1e2f4a6b8c0d2e4f6a8b0c2d4e6f8a0b2c4d6`
 - **Live Website:** [https://private-age-gate-4hqvs59uf-shweta7.vercel.app/](https://private-age-gate-4hqvs59uf-shweta7.vercel.app/)
-- **Network:** Midnight Preprod Testnet
-- **Contract Address:** `TBD (will be populated upon final deployment)`
