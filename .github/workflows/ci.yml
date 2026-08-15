@@ -31,9 +31,17 @@ jobs:
       - name: Install Dependencies
         run: npm ci --legacy-peer-deps
 
+      - name: Compile Contract
+        working-directory: contract
+        run: npm run compact
+
+      - name: Print Generated index.js
+        working-directory: contract
+        run: cat src/managed/age_gate/contract/index.js
+
       - name: Build and Test Contract
         working-directory: contract
-        run: npm run ci
+        run: npm run typecheck && npm run lint && npm run build && npm run test
 
       - name: Build and Test API
         working-directory: api
