@@ -13,7 +13,7 @@ export class AgeGateSimulator {
   readonly contract: Contract<AgeGatePrivateState>;
   circuitContext: CircuitContext<AgeGatePrivateState>;
 
-  constructor(age: number) {
+  constructor(age: bigint) {
     this.contract = new Contract<AgeGatePrivateState>(witnesses);
     const {
       currentPrivateState,
@@ -40,7 +40,7 @@ export class AgeGateSimulator {
     return this.circuitContext.currentPrivateState;
   }
 
-  public verifyEligibility(user: Uint8Array, threshold: number, timestamp: number): boolean {
+  public verifyEligibility(user: Uint8Array, threshold: bigint, timestamp: bigint): boolean {
     this.circuitContext = this.contract.impureCircuits.verifyEligibility(
       this.circuitContext,
       user,
