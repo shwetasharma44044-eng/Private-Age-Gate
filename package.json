@@ -20,7 +20,7 @@
     "test:ui": "npm --prefix bboard-ui run test",
     "test:contract": "npm --prefix contract run test -- --run",
     "test": "npm run test:contract && npm run test:ui",
-    "vercel-build": "curl --proto '=https' --tlsv1.2 -LsSf https://github.com/midnight-ntwrk/compact/releases/latest/download/compact-installer.sh | sh && export PATH=\"$HOME/.local/bin:$PATH\" && compact update && npm run build --prefix contract && npm run build --prefix bboard-ui"
+    "vercel-build": "curl --proto '=https' --tlsv1.2 -LsSf https://github.com/midnightntwrk/compact/releases/latest/download/compact-installer.sh | sh && export PATH=\"$HOME/.local/bin:$PATH\" && compact update && npm run build --prefix contract && npm run build --prefix bboard-ui"
   },
   "dependencies": {
     "@midnight-ntwrk/dapp-connector-api": "4.0.1",
