@@ -1,28 +1,17 @@
-# Project Proposal: ZK Private Age Gate
+# Private Age Gate - Project Proposal
 
-## 1. Chosen Idea: Age & Eligibility Gate
+## The Problem
+Digital services, age-restricted products, and online platforms require age verification to comply with regulations (e.g., KYC, GDPR, COPPA). Traditional age verification methods force users to upload government IDs, share their exact date of birth, or doxx their entire identity to third-party providers. This creates massive data honeypots, exposes users to identity theft, and fundamentally violates user privacy.
 
-Our project is a privacy-preserving **Age Gate / Eligibility Gate** dApp built on the Midnight Network. It enables users to cryptographically prove that they meet a minimum age requirement (e.g., 18 or 21) without revealing their actual date of birth, age, or identity.
+## The Solution
+The **Private Age Gate** is a decentralized application built on the Midnight Network that leverages Zero-Knowledge (ZK) cryptography to solve this dilemma. 
 
----
+Users can definitively prove they meet a required age threshold (e.g., ≥ 18) without ever revealing their actual age, date of birth, or identity. The smart contract acts as an uncompromising, privacy-preserving gatekeeper.
 
-## 2. Why This Problem Matters
+## Why Midnight Network?
+Midnight’s unique data protection model is perfectly suited for this use case:
+1. **Local Private Witnesses**: The user's actual age remains a local witness. It is evaluated client-side and is never transmitted to the network or stored in plaintext.
+2. **Public Verification**: The ZK proof output is verified by the Midnight network, yielding a public, immutable boolean result (`true/false`) on the public ledger. 
+3. **Data Protection by Default**: Unlike other chains where all inputs are public, Midnight allows us to strictly decouple the *private input* (age) from the *public outcome* (eligibility).
 
-Age verification is a critical requirement across multiple industries, including:
-- **Age-restricted content platforms** (gaming, adult entertainment, streaming).
-- **Regulated commerce** (alcohol delivery, tobacco, pharmaceuticals).
-- **Gambling and prediction markets**.
-
-The current solutions are highly flawed:
-- **Web2 approach:** Users upload government IDs or fill out forms. This exposes highly sensitive personally identifiable information (PII) to central servers, making it vulnerable to database hacks, identity theft, and corporate tracking.
-- **Traditional Blockchain approach:** Users make public assertions or store metadata on-chain. Since blockchains like Ethereum are public by default, storing an age or ID hash publicly linkable to a wallet address permanently doxxes the user.
-
----
-
-## 3. How Midnight Network Uniquely Solves This
-
-Midnight’s dual-state (public + private) ledger architecture and **Compact** language allow us to solve this problem optimally:
-
-1. **Rational Privacy (Private Witness):** The user's age is treated as a *private witness* (`localAge()`) that never leaves their device. The ZK circuit runs off-chain inside the browser, verifying the mathematical inequality `age >= threshold` locally.
-2. **Selective Disclosure:** The compiler ensures that only the boolean eligibility status (`true`), the transaction timestamp, and the wallet identifier are disclosed to the public ledger. No raw age value is ever stored, logged, or sent to a node.
-3. **Public Verifiability:** Anyone can verify the resulting on-chain state to confirm that the wallet has been validated, providing trust without sacrificing anonymity.
+This application demonstrates a Level 3 production-grade privacy dApp, offering a clean, user-friendly frontend seamlessly integrated with the Lace wallet and Midnight's Compact smart contracts.
