@@ -6,7 +6,9 @@ A production-grade decentralized application (Level 3) built on the Midnight Net
 
 ## 🌟 Hackathon Submission
 
-Please refer to the [PROPOSAL.md](./PROPOSAL.md) for the detailed problem statement, solution overview, and why Midnight Network's unique features make this possible.
+- **Live Website:** [View the Deployed Vercel App](https://private-age-gate-4hqvs59uf-shweta7.vercel.app/) 🌐
+- **Demo Video:** [Watch the working demo here](https://photos.app.goo.gl/NW1CeTQCNTADJQFHA) 🎥
+- **Proposal:** Please refer to the [PROPOSAL.md](./PROPOSAL.md) for the detailed problem statement, solution overview, and why Midnight Network's unique features make this possible.
 
 ## 🏛️ Architecture & Privacy Model
 
@@ -73,6 +75,8 @@ npm run test:ui
 *Add a screenshot of your terminal showing passing unit tests for both contract and UI here.*
 ![alt text](image-2.png)
 
-## 🌐 Deployed Network
-- **Midnight Preprod Testnet**
-- Contract Address: `TBD (will be populated upon final deployment)`
+## 🌐 Live Demo & Deployed Network
+
+- **Live Website:** [https://private-age-gate-4hqvs59uf-shweta7.vercel.app/](https://private-age-gate-4hqvs59uf-shweta7.vercel.app/)
+- **Network:** Midnight Preprod Testnet
+- **Contract Address:** `TBD (will be populated upon final deployment)`
