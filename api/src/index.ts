@@ -93,7 +93,7 @@ export class AgeGateAPI implements DeployedAgeGateAPI {
     const userPubKeyBytes = fromHex(userPubKeyHex);
     const timestamp = BigInt(Date.now());
 
-    const txData = await this.deployedContract.callTx.verifyEligibility(userPubKeyBytes, threshold, timestamp);
+    const txData = await this.deployedContract.callTx.verifyEligibility(userPubKeyBytes, BigInt(threshold), timestamp);
 
     this.logger?.trace({
       transactionAdded: {

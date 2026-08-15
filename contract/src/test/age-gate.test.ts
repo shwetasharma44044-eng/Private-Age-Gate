@@ -9,7 +9,7 @@ describe("AgeGate smart contract", () => {
   it("allows verification when age is above or equal to threshold", () => {
     const user = randomBytes(32);
     const simulator = new AgeGateSimulator(20n);
-    const threshold = 18;
+    const threshold = 18n;
     const timestamp = BigInt(Date.now());
 
     const success = simulator.verifyEligibility(user, threshold, timestamp);
@@ -24,7 +24,7 @@ describe("AgeGate smart contract", () => {
   it("fails verification when age is below threshold", () => {
     const user = randomBytes(32);
     const simulator = new AgeGateSimulator(16n);
-    const threshold = 18;
+    const threshold = 18n;
     const timestamp = BigInt(Date.now());
 
     expect(() => {
@@ -38,7 +38,7 @@ describe("AgeGate smart contract", () => {
   it("does not leak the private age value into the public ledger state", () => {
     const user = randomBytes(32);
     const simulator = new AgeGateSimulator(25n);
-    const threshold = 18;
+    const threshold = 18n;
     const timestamp = BigInt(Date.now());
 
     simulator.verifyEligibility(user, threshold, timestamp);

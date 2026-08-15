@@ -42,7 +42,7 @@ export class AgeGateSimulator {
 
   public verifyEligibility(
     user: Uint8Array,
-    threshold: number,
+    threshold: bigint,
     timestamp: bigint,
   ): boolean {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
