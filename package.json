@@ -18,7 +18,8 @@
   "scripts": {
     "dev": "npm --prefix bboard-ui run dev",
     "test:ui": "npm --prefix bboard-ui run test",
-    "test:contract": "npm --prefix contract run test -- --run"
+    "test:contract": "npm --prefix contract run test -- --run",
+    "test": "npm run test:contract && npm run test:ui"
   },
   "dependencies": {
     "@midnight-ntwrk/dapp-connector-api": "4.0.1",
