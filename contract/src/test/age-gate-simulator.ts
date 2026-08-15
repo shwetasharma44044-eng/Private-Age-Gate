@@ -11,7 +11,7 @@ export class AgeGateSimulator {
     const { currentPrivateState, currentContractState, currentZswapLocalState } =
       this.contract.initialState({
         privateState: { age },
-      } as ConstructorContext<AgeGatePrivateState>);
+      } as unknown as ConstructorContext<AgeGatePrivateState>);
     this.circuitContext = {
       currentPrivateState,
       currentZswapLocalState,
