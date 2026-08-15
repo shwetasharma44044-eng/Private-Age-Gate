@@ -16,6 +16,6 @@ export const witnesses = {
     privateState,
   }: WitnessContext<Ledger, AgeGatePrivateState>): [
     AgeGatePrivateState,
-    bigint,
-  ] => [privateState, privateState.age],
+    number,
+  ] => [privateState, Number(privateState.age)],
 };
