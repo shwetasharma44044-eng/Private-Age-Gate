@@ -3,7 +3,6 @@ import {
   type AgeGateCircuitKeys,
   type AgeGateProviders,
   type DeployedAgeGateAPI,
-  ageGatePrivateStateKey,
 } from '../../../api/src/index';
 import { type ContractAddress, fromHex, toHex } from '@midnight-ntwrk/midnight-js-protocol/compact-runtime';
 import {
@@ -151,7 +150,7 @@ const initializeProviders = async (logger: Logger): Promise<AgeGateProviders> =>
   const config = await connectedAPI.getConfiguration();
   const privateStateProvider = inMemoryPrivateStateProvider<string, AgeGatePrivateState>();
   const shieldedAddresses = await connectedAPI.getShieldedAddresses();
-  
+
   return {
     privateStateProvider,
     zkConfigProvider: keyMaterialProvider,

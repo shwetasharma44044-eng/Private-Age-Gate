@@ -1,53 +1,44 @@
-name: CI
+name: CI/CD Pipeline
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
-
-permissions: {}
+    branches: [ main ]
 
 jobs:
-  install-and-test:
+  build-and-test:
+    name: Build, Lint, and Test
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
+
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Compact Compiler
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Set up Compact Compiler
         uses: midnightntwrk/setup-compact-action@v1
         with:
           compact-version: '0.31.1'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "24"
-
-      - name: Update NPM
-        run: |
-          npm install -g npm@11.6.2
-          npm --version
-
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci --legacy-peer-deps
 
-      - name: Compile and test contract
+      - name: Build and Test Contract
         working-directory: contract
-        run: |
-          npm run ci
+        run: npm run ci
 
-      - name: Run API checks
+      - name: Build and Test API
         working-directory: api
-        run: |
-          npm run ci
+        run: npm run ci
 
-      - name: Compile and test UI
+      - name: Build and Test UI
         working-directory: bboard-ui
-        run: |
-          npm run ci
+        run: npm run ci

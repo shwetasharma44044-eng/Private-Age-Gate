@@ -22,7 +22,7 @@ describe('Frontend UI', () => {
     render(
       <DeployedAgeGateContext.Provider value={mockProvider}>
         <App />
-      </DeployedAgeGateContext.Provider>
+      </DeployedAgeGateContext.Provider>,
     );
 
     expect(screen.getByText('Midnight Private Age Gate')).toBeInTheDocument();
@@ -47,7 +47,7 @@ describe('Frontend UI', () => {
       new BehaviorSubject<AgeGateDeployment>({
         status: 'deployed',
         api: mockAPI,
-      })
+      }),
     ]);
 
     const mockProvider: DeployedAgeGateAPIProvider = {
@@ -58,7 +58,7 @@ describe('Frontend UI', () => {
     render(
       <DeployedAgeGateContext.Provider value={mockProvider}>
         <App />
-      </DeployedAgeGateContext.Provider>
+      </DeployedAgeGateContext.Provider>,
     );
 
     expect(screen.getByText('Verify Age Eligibility')).toBeInTheDocument();
@@ -85,7 +85,7 @@ describe('Frontend UI', () => {
       new BehaviorSubject<AgeGateDeployment>({
         status: 'deployed',
         api: mockAPI,
-      })
+      }),
     ]);
 
     const mockProvider: DeployedAgeGateAPIProvider = {
@@ -96,7 +96,7 @@ describe('Frontend UI', () => {
     render(
       <DeployedAgeGateContext.Provider value={mockProvider}>
         <App />
-      </DeployedAgeGateContext.Provider>
+      </DeployedAgeGateContext.Provider>,
     );
 
     expect(screen.getByText('Eligible')).toBeInTheDocument();

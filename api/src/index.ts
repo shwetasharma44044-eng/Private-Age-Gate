@@ -32,7 +32,7 @@ export class AgeGateAPI implements DeployedAgeGateAPI {
   ) {
     this.deployedContractAddress = deployedContract.deployTxData.public.contractAddress;
     providers.privateStateProvider.setContractAddress(this.deployedContractAddress);
-    
+
     this.state$ = combineLatest([
       providers.publicDataProvider.contractStateObservable(this.deployedContractAddress, { type: 'latest' }).pipe(
         map((contractState) => AgeGate.ledger(contractState.data)),
@@ -46,14 +46,14 @@ export class AgeGateAPI implements DeployedAgeGateAPI {
       ),
       from(providers.privateStateProvider.get(ageGatePrivateStateKey) as Promise<AgeGatePrivateState>),
     ]).pipe(
-      map(([ledgerState, privateState]) => {
+      map(([ledgerState]) => {
         const userPubKeyHex = providers.walletProvider.getCoinPublicKey();
-        
+
         let isEligible = false;
         let timestamp: bigint | undefined = undefined;
 
         if (ledgerState.eligible) {
-          for (const [key, val] of ledgerState.eligible.entries()) {
+          for (const [key, val] of ledgerState.eligible) {
             if (toHex(key) === userPubKeyHex) {
               isEligible = val;
               break;
@@ -62,7 +62,7 @@ export class AgeGateAPI implements DeployedAgeGateAPI {
         }
 
         if (ledgerState.verification_timestamp) {
-          for (const [key, val] of ledgerState.verification_timestamp.entries()) {
+          for (const [key, val] of ledgerState.verification_timestamp) {
             if (toHex(key) === userPubKeyHex) {
               timestamp = val;
               break;
@@ -75,7 +75,7 @@ export class AgeGateAPI implements DeployedAgeGateAPI {
           timestamp,
           userPublicKey: userPubKeyHex,
         };
-      })
+      }),
     );
   }
 
@@ -85,7 +85,7 @@ export class AgeGateAPI implements DeployedAgeGateAPI {
     const existingPrivateState = await this.providers.privateStateProvider.get(ageGatePrivateStateKey);
     const updatedPrivateState = {
       ...existingPrivateState,
-      age
+      age: BigInt(age),
     };
     await this.providers.privateStateProvider.set(ageGatePrivateStateKey, updatedPrivateState);
 
@@ -93,11 +93,7 @@ export class AgeGateAPI implements DeployedAgeGateAPI {
     const userPubKeyBytes = fromHex(userPubKeyHex);
     const timestamp = BigInt(Date.now());
 
-    const txData = await this.deployedContract.callTx.verifyEligibility(
-      userPubKeyBytes,
-      threshold,
-      timestamp
-    );
+    const txData = await this.deployedContract.callTx.verifyEligibility(userPubKeyBytes, threshold, timestamp);
 
     this.logger?.trace({
       transactionAdded: {
@@ -111,11 +107,12 @@ export class AgeGateAPI implements DeployedAgeGateAPI {
   static async deploy(providers: AgeGateProviders, logger?: Logger): Promise<AgeGateAPI> {
     logger?.info('deployContract');
 
-    const deployedAgeGateContract = await deployContract(providers, {
+    const deployedAgeGateContract = (await deployContract(providers, {
       compiledContract: CompiledAgeGateContractContract,
       privateStateId: ageGatePrivateStateKey,
-      initialPrivateState: { age: 0 },
-    });
+      initialPrivateState: { age: 0n },
+      args: [],
+    })) as unknown as DeployedAgeGateContract;
 
     logger?.trace({
       contractDeployed: {
@@ -126,7 +123,11 @@ export class AgeGateAPI implements DeployedAgeGateAPI {
     return new AgeGateAPI(deployedAgeGateContract, providers, logger);
   }
 
-  static async join(providers: AgeGateProviders, contractAddress: ContractAddress, logger?: Logger): Promise<AgeGateAPI> {
+  static async join(
+    providers: AgeGateProviders,
+    contractAddress: ContractAddress,
+    logger?: Logger,
+  ): Promise<AgeGateAPI> {
     logger?.info({
       joinContract: {
         contractAddress,
@@ -155,7 +156,7 @@ export class AgeGateAPI implements DeployedAgeGateAPI {
   ): Promise<AgeGatePrivateState> {
     providers.privateStateProvider.setContractAddress(contractAddress);
     const existingPrivateState = await providers.privateStateProvider.get(ageGatePrivateStateKey);
-    return existingPrivateState ?? { age: 0 };
+    return existingPrivateState ?? { age: 0n };
   }
 }
 

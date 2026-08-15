@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access */
 import React, { useEffect, useState } from 'react';
 import {
   Box,
@@ -50,11 +51,11 @@ const App: React.FC = () => {
               if (deployment.status === 'deployed') {
                 setActiveContractAddress(deployment.api.deployedContractAddress);
               }
-            }
+            },
           });
           return () => sub2.unsubscribe();
         }
-      }
+      },
     });
     return () => sub.unsubscribe();
   }, [ageGateManager]);
@@ -76,7 +77,7 @@ const App: React.FC = () => {
       error: (err) => {
         setLoading(false);
         setError(err.message || 'Deployment failed');
-      }
+      },
     });
   };
 
@@ -101,7 +102,7 @@ const App: React.FC = () => {
       error: (err) => {
         setLoading(false);
         setError(err.message || 'Failed to join contract');
-      }
+      },
     });
   };
 
@@ -113,7 +114,7 @@ const App: React.FC = () => {
         },
         error: (err) => {
           setError(err.message || 'Error loading contract state');
-        }
+        },
       });
       return () => sub.unsubscribe();
     }
@@ -134,7 +135,7 @@ const App: React.FC = () => {
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(activeContractAddress);
+    void navigator.clipboard.writeText(activeContractAddress);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -156,7 +157,9 @@ const App: React.FC = () => {
         {/* Title Header */}
         <Box sx={{ textAlign: 'center', mb: 5 }}>
           <Box sx={{ display: 'inline-flex', alignItems: 'center', mb: 1 }}>
-            <ShieldIcon sx={{ fontSize: 40, color: '#38bdf8', mr: 1.5, filter: 'drop-shadow(0 0 10px rgba(56, 189, 248, 0.4))' }} />
+            <ShieldIcon
+              sx={{ fontSize: 40, color: '#38bdf8', mr: 1.5, filter: 'drop-shadow(0 0 10px rgba(56, 189, 248, 0.4))' }}
+            />
             <Typography variant="h4" component="h1" sx={{ fontWeight: 800, color: '#fff', fontFamily: 'system-ui' }}>
               Midnight Private Age Gate
             </Typography>
@@ -167,7 +170,16 @@ const App: React.FC = () => {
         </Box>
 
         {error && (
-          <Alert severity="error" sx={{ mb: 4, borderRadius: 3, border: '1px solid rgba(239, 68, 68, 0.2)', backgroundColor: 'rgba(127, 29, 29, 0.2)', color: '#fca5a5' }}>
+          <Alert
+            severity="error"
+            sx={{
+              mb: 4,
+              borderRadius: 3,
+              border: '1px solid rgba(239, 68, 68, 0.2)',
+              backgroundColor: 'rgba(127, 29, 29, 0.2)',
+              color: '#fca5a5',
+            }}
+          >
             {error}
           </Alert>
         )}
@@ -193,7 +205,20 @@ const App: React.FC = () => {
                   /* STEP 1: Deploy or Join */
                   <Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-                      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: '#38bdf8', width: 28, height: 28, borderRadius: '50%', color: '#000', fontWeight: 'bold', mr: 1.5 }}>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          bgcolor: '#38bdf8',
+                          width: 28,
+                          height: 28,
+                          borderRadius: '50%',
+                          color: '#000',
+                          fontWeight: 'bold',
+                          mr: 1.5,
+                        }}
+                      >
                         1
                       </Box>
                       <Typography variant="h6" sx={{ fontWeight: 700 }}>
@@ -202,7 +227,8 @@ const App: React.FC = () => {
                     </Box>
 
                     <Typography variant="body2" sx={{ color: '#94a3b8', mb: 4 }}>
-                      To start the private verification process, deploy a new instance of the Age Gate contract, or join an existing contract address.
+                      To start the private verification process, deploy a new instance of the Age Gate contract, or join
+                      an existing contract address.
                     </Typography>
 
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
@@ -221,7 +247,7 @@ const App: React.FC = () => {
                           boxShadow: '0 4px 20px rgba(56, 189, 248, 0.25)',
                           '&:hover': {
                             background: 'linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%)',
-                          }
+                          },
                         }}
                       >
                         {loading ? <CircularProgress size={24} color="inherit" /> : 'Deploy New Age Gate Contract'}
@@ -229,7 +255,9 @@ const App: React.FC = () => {
 
                       <Box sx={{ display: 'flex', alignItems: 'center', my: 1 }}>
                         <Divider sx={{ flex: 1, borderColor: 'rgba(255, 255, 255, 0.1)' }} />
-                        <Typography variant="caption" sx={{ mx: 2, color: '#475569', fontWeight: 600 }}>OR</Typography>
+                        <Typography variant="caption" sx={{ mx: 2, color: '#475569', fontWeight: 600 }}>
+                          OR
+                        </Typography>
                         <Divider sx={{ flex: 1, borderColor: 'rgba(255, 255, 255, 0.1)' }} />
                       </Box>
 
@@ -249,7 +277,7 @@ const App: React.FC = () => {
                               '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.1)' },
                               '&:hover fieldset': { borderColor: 'rgba(255, 255, 255, 0.2)' },
                               '&.Mui-focused fieldset': { borderColor: '#38bdf8' },
-                            }
+                            },
                           }}
                         />
                         <Button
@@ -263,7 +291,7 @@ const App: React.FC = () => {
                             textTransform: 'none',
                             px: 3,
                             fontWeight: 600,
-                            '&:hover': { borderColor: '#38bdf8', backgroundColor: 'rgba(56, 189, 248, 0.05)' }
+                            '&:hover': { borderColor: '#38bdf8', backgroundColor: 'rgba(56, 189, 248, 0.05)' },
                           }}
                         >
                           Join
@@ -276,7 +304,20 @@ const App: React.FC = () => {
                   <Box>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
                       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: '#10b981', width: 28, height: 28, borderRadius: '50%', color: '#000', fontWeight: 'bold', mr: 1.5 }}>
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            bgcolor: '#10b981',
+                            width: 28,
+                            height: 28,
+                            borderRadius: '50%',
+                            color: '#000',
+                            fontWeight: 'bold',
+                            mr: 1.5,
+                          }}
+                        >
                           2
                         </Box>
                         <Typography variant="h6" sx={{ fontWeight: 700 }}>
@@ -287,14 +328,39 @@ const App: React.FC = () => {
                         label="Connected"
                         size="small"
                         icon={<CheckCircleIcon sx={{ '&&': { color: '#10b981' } }} />}
-                        sx={{ bgcolor: 'rgba(16, 185, 129, 0.1)', color: '#10b981', border: '1px solid rgba(16, 185, 129, 0.2)' }}
+                        sx={{
+                          bgcolor: 'rgba(16, 185, 129, 0.1)',
+                          color: '#10b981',
+                          border: '1px solid rgba(16, 185, 129, 0.2)',
+                        }}
                       />
                     </Box>
 
                     {/* Contract Address Display */}
-                    <Box sx={{ display: 'flex', alignItems: 'center', bgcolor: 'rgba(255, 255, 255, 0.02)', p: 1.5, borderRadius: 3, border: '1px solid rgba(255, 255, 255, 0.05)', mb: 4 }}>
-                      <Typography variant="caption" sx={{ color: '#64748b', fontWeight: 600, mr: 1 }}>Contract:</Typography>
-                      <Typography variant="caption" sx={{ fontFamily: 'monospace', color: '#94a3b8', flex: 1, textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        bgcolor: 'rgba(255, 255, 255, 0.02)',
+                        p: 1.5,
+                        borderRadius: 3,
+                        border: '1px solid rgba(255, 255, 255, 0.05)',
+                        mb: 4,
+                      }}
+                    >
+                      <Typography variant="caption" sx={{ color: '#64748b', fontWeight: 600, mr: 1 }}>
+                        Contract:
+                      </Typography>
+                      <Typography
+                        variant="caption"
+                        sx={{
+                          fontFamily: 'monospace',
+                          color: '#94a3b8',
+                          flex: 1,
+                          textOverflow: 'ellipsis',
+                          overflow: 'hidden',
+                        }}
+                      >
                         {activeContractAddress}
                       </Typography>
                       <Tooltip title={copied ? 'Copied!' : 'Copy'}>
@@ -306,7 +372,10 @@ const App: React.FC = () => {
 
                     <Grid container spacing={3} sx={{ mb: 4 }}>
                       <Grid size={{ xs: 6 }}>
-                        <Typography variant="caption" sx={{ color: '#94a3b8', display: 'block', mb: 1, fontWeight: 600 }}>
+                        <Typography
+                          variant="caption"
+                          sx={{ color: '#94a3b8', display: 'block', mb: 1, fontWeight: 600 }}
+                        >
                           YOUR AGE (LOCAL WITNESS)
                         </Typography>
                         <TextField
@@ -323,12 +392,15 @@ const App: React.FC = () => {
                               '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.1)' },
                               '&:hover fieldset': { borderColor: 'rgba(255, 255, 255, 0.2)' },
                               '&.Mui-focused fieldset': { borderColor: '#38bdf8' },
-                            }
+                            },
                           }}
                         />
                       </Grid>
                       <Grid size={{ xs: 6 }}>
-                        <Typography variant="caption" sx={{ color: '#94a3b8', display: 'block', mb: 1, fontWeight: 600 }}>
+                        <Typography
+                          variant="caption"
+                          sx={{ color: '#94a3b8', display: 'block', mb: 1, fontWeight: 600 }}
+                        >
                           MIN AGE THRESHOLD
                         </Typography>
                         <TextField
@@ -345,7 +417,7 @@ const App: React.FC = () => {
                               '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.1)' },
                               '&:hover fieldset': { borderColor: 'rgba(255, 255, 255, 0.2)' },
                               '&.Mui-focused fieldset': { borderColor: '#38bdf8' },
-                            }
+                            },
                           }}
                         />
                       </Grid>
@@ -366,7 +438,7 @@ const App: React.FC = () => {
                         boxShadow: '0 4px 20px rgba(16, 185, 129, 0.25)',
                         '&:hover': {
                           background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
-                        }
+                        },
                       }}
                     >
                       {loading ? <CircularProgress size={24} color="inherit" /> : 'Generate ZK Proof & Verify'}
@@ -409,15 +481,32 @@ const App: React.FC = () => {
                   </Box>
                 ) : derivedState?.isEligible ? (
                   <Box>
-                    <CheckCircleIcon sx={{ fontSize: 72, color: '#10b981', filter: 'drop-shadow(0 0 15px rgba(16, 185, 129, 0.3))', mb: 2 }} />
+                    <CheckCircleIcon
+                      sx={{
+                        fontSize: 72,
+                        color: '#10b981',
+                        filter: 'drop-shadow(0 0 15px rgba(16, 185, 129, 0.3))',
+                        mb: 2,
+                      }}
+                    />
                     <Typography variant="h5" sx={{ fontWeight: 800, color: '#10b981', mb: 1 }}>
                       Eligible
                     </Typography>
                     <Typography variant="caption" sx={{ color: '#94a3b8', display: 'block', mb: 2 }}>
                       Age verified on-chain as ≥ {threshold}
                     </Typography>
-                    <Box sx={{ bgcolor: 'rgba(16, 185, 129, 0.05)', px: 2, py: 1, borderRadius: 2, border: '1px solid rgba(16, 185, 129, 0.1)' }}>
-                      <Typography variant="caption" sx={{ color: '#64748b', display: 'block' }}>PROVED ON-CHAIN AT</Typography>
+                    <Box
+                      sx={{
+                        bgcolor: 'rgba(16, 185, 129, 0.05)',
+                        px: 2,
+                        py: 1,
+                        borderRadius: 2,
+                        border: '1px solid rgba(16, 185, 129, 0.1)',
+                      }}
+                    >
+                      <Typography variant="caption" sx={{ color: '#64748b', display: 'block' }}>
+                        PROVED ON-CHAIN AT
+                      </Typography>
                       <Typography variant="body2" sx={{ color: '#10b981', fontWeight: 600, fontSize: 12 }}>
                         {derivedState.timestamp ? new Date(Number(derivedState.timestamp)).toLocaleString() : 'N/A'}
                       </Typography>
@@ -458,25 +547,60 @@ const App: React.FC = () => {
                 </Box>
                 <Grid container spacing={4}>
                   <Grid size={{ xs: 12, md: 6 }}>
-                    <Box sx={{ p: 2.5, borderRadius: 4, bgcolor: 'rgba(56, 189, 248, 0.02)', border: '1px solid rgba(56, 189, 248, 0.05)', height: '100%' }}>
-                      <Typography variant="subtitle2" sx={{ color: '#38bdf8', fontWeight: 700, mb: 1.5, display: 'flex', alignItems: 'center' }}>
+                    <Box
+                      sx={{
+                        p: 2.5,
+                        borderRadius: 4,
+                        bgcolor: 'rgba(56, 189, 248, 0.02)',
+                        border: '1px solid rgba(56, 189, 248, 0.05)',
+                        height: '100%',
+                      }}
+                    >
+                      <Typography
+                        variant="subtitle2"
+                        sx={{ color: '#38bdf8', fontWeight: 700, mb: 1.5, display: 'flex', alignItems: 'center' }}
+                      >
                         <ShieldIcon sx={{ mr: 1, fontSize: 18 }} /> PRIVATE WITNESS (Stays Local)
                       </Typography>
                       <ul style={{ paddingLeft: 18, margin: 0, color: '#94a3b8', fontSize: 13.5, lineHeight: 1.6 }}>
-                        <li><strong>Actual Age:</strong> Evaluated local-only by the contract circuit. Never transmitted to ledger, node, or indexer.</li>
-                        <li><strong>Private Key:</strong> Kept in your local browser private state to sign the ZK proof intent.</li>
+                        <li>
+                          <strong>Actual Age:</strong> Evaluated local-only by the contract circuit. Never transmitted
+                          to ledger, node, or indexer.
+                        </li>
+                        <li>
+                          <strong>Private Key:</strong> Kept in your local browser private state to sign the ZK proof
+                          intent.
+                        </li>
                       </ul>
                     </Box>
                   </Grid>
                   <Grid size={{ xs: 12, md: 6 }}>
-                    <Box sx={{ p: 2.5, borderRadius: 4, bgcolor: 'rgba(16, 185, 129, 0.02)', border: '1px solid rgba(16, 185, 129, 0.05)', height: '100%' }}>
-                      <Typography variant="subtitle2" sx={{ color: '#10b981', fontWeight: 700, mb: 1.5, display: 'flex', alignItems: 'center' }}>
+                    <Box
+                      sx={{
+                        p: 2.5,
+                        borderRadius: 4,
+                        bgcolor: 'rgba(16, 185, 129, 0.02)',
+                        border: '1px solid rgba(16, 185, 129, 0.05)',
+                        height: '100%',
+                      }}
+                    >
+                      <Typography
+                        variant="subtitle2"
+                        sx={{ color: '#10b981', fontWeight: 700, mb: 1.5, display: 'flex', alignItems: 'center' }}
+                      >
                         <InfoIcon sx={{ mr: 1, fontSize: 18 }} /> PUBLIC LEDGER (Visible On-Chain)
                       </Typography>
                       <ul style={{ paddingLeft: 18, margin: 0, color: '#94a3b8', fontSize: 13.5, lineHeight: 1.6 }}>
-                        <li><strong>Eligibility Status:</strong> The boolean result (<code>true</code>) proves you are above the threshold.</li>
-                        <li><strong>Wallet Public Key:</strong> Identifies that this wallet is eligible.</li>
-                        <li><strong>Timestamp:</strong> Records when the ZK verification transaction occurred.</li>
+                        <li>
+                          <strong>Eligibility Status:</strong> The boolean result (<code>true</code>) proves you are
+                          above the threshold.
+                        </li>
+                        <li>
+                          <strong>Wallet Public Key:</strong> Identifies that this wallet is eligible.
+                        </li>
+                        <li>
+                          <strong>Timestamp:</strong> Records when the ZK verification transaction occurred.
+                        </li>
                       </ul>
                     </Box>
                   </Grid>

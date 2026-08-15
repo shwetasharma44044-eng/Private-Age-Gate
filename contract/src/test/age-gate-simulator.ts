@@ -1,19 +1,17 @@
 import { CostModel } from "@midnight-ntwrk/compact-runtime";
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 import { Contract, ledger } from "../managed/age_gate/contract/index.js";
 import { type AgeGatePrivateState, witnesses } from "../witnesses.js";
 import { type AgeLedger } from "./compact-types.js";
 
 export class AgeGateSimulator {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private readonly contract: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   private circuitContext: any;
 
   constructor(age: bigint) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.contract = new (Contract as any)(witnesses);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     const result: any = this.contract.initialState({ privateState: { age } });
     this.circuitContext = {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
@@ -29,12 +27,11 @@ export class AgeGateSimulator {
   }
 
   public getLedger(): AgeLedger {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
-    return ledger(this.circuitContext.currentQueryContext.state) as any;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    return ledger(this.circuitContext.currentQueryContext.state);
   }
 
   public getPrivateState(): AgeGatePrivateState {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return this.circuitContext.currentPrivateState as AgeGatePrivateState;
   }
 
