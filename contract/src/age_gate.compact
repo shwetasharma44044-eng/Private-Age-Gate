@@ -14,8 +14,8 @@ export circuit verifyEligibility(user: Bytes<32>, threshold: Uint<32>, timestamp
   const age = localAge();
   assert(age >= threshold, "User age is below the required threshold");
   
-  eligible.insert(user, disclose(true));
-  verification_timestamp.insert(user, disclose(timestamp));
+  eligible.insert(disclose(user), disclose(true));
+  verification_timestamp.insert(disclose(user), disclose(timestamp));
   
   return true;
 }
