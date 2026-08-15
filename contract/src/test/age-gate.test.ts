@@ -16,7 +16,7 @@ describe("AgeGate smart contract", () => {
     expect(success).toBe(true);
 
     const ledgerState = simulator.getLedger();
-    // Compact Map API: use .lookup() to read values
+    // Compact Map API (.lookup / .member)
     expect(ledgerState.eligible.lookup(user)).toBe(true);
     expect(ledgerState.verification_timestamp.lookup(user)).toBe(timestamp);
   });
@@ -32,7 +32,6 @@ describe("AgeGate smart contract", () => {
     }).toThrow("User age is below the required threshold");
 
     const ledgerState = simulator.getLedger();
-    // Compact Map API: use .member() to check existence
     expect(ledgerState.eligible.member(user)).toBe(false);
   });
 
@@ -47,8 +46,7 @@ describe("AgeGate smart contract", () => {
     const ledgerState = simulator.getLedger();
     expect(ledgerState.eligible.lookup(user)).toBe(true);
     expect(ledgerState.verification_timestamp.lookup(user)).toBe(timestamp);
-    const ledgerAsRecord = ledgerState as Record<string, unknown>;
-    expect(ledgerAsRecord["age"]).toBeUndefined();
-    expect(Object.keys(ledgerState)).not.toContain("age");
+    const ledgerKeys = Object.keys(ledgerState);
+    expect(ledgerKeys).not.toContain("age");
   });
 });
