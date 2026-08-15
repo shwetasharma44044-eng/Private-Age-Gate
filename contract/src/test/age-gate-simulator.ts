@@ -1,24 +1,23 @@
-import { type CircuitContext, CostModel, type ConstructorContext } from "@midnight-ntwrk/compact-runtime";
+import { CostModel } from "@midnight-ntwrk/compact-runtime";
 import { Contract, type Ledger, ledger } from "../managed/age_gate/contract/index.js";
 import { type AgeGatePrivateState, witnesses } from "../witnesses.js";
 
 export class AgeGateSimulator {
   readonly contract: Contract<AgeGatePrivateState>;
-  circuitContext: CircuitContext<AgeGatePrivateState>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  circuitContext: any;
 
   constructor(age: bigint) {
     this.contract = new Contract<AgeGatePrivateState>(witnesses);
-    const { currentPrivateState, currentContractState, currentZswapLocalState } =
-      this.contract.initialState({
-        privateState: { age },
-      } as unknown as ConstructorContext<AgeGatePrivateState>);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const result: any = this.contract.initialState({ privateState: { age } });
     this.circuitContext = {
-      currentPrivateState,
-      currentZswapLocalState,
+      currentPrivateState: result.currentPrivateState,
+      currentZswapLocalState: result.currentZswapLocalState,
       costModel: CostModel.initialCostModel(),
       currentQueryContext: {
-        state: currentContractState.data,
-      } as CircuitContext<AgeGatePrivateState>["currentQueryContext"],
+        state: result.currentContractState.data,
+      },
     };
   }
 
@@ -27,7 +26,7 @@ export class AgeGateSimulator {
   }
 
   public getPrivateState(): AgeGatePrivateState {
-    return this.circuitContext.currentPrivateState;
+    return this.circuitContext.currentPrivateState as AgeGatePrivateState;
   }
 
   public verifyEligibility(

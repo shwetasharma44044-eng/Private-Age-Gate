@@ -26,6 +26,8 @@ const config = tseslint.config(
       "@typescript-eslint/no-unsafe-assignment": "warn",
       "@typescript-eslint/no-unsafe-member-access": "warn",
       "@typescript-eslint/no-unsafe-argument": "warn",
+      // Compact SDK generates any-typed stubs; allow explicit any in this project
+      "@typescript-eslint/no-explicit-any": "off",
     },
     settings: {
       react: {
